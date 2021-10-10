@@ -49,6 +49,8 @@ public class BoardManager : MonoBehaviour
 
     public bool IsSwapping { get; set; }
 
+    private int combo;
+
     private void Start()
     {
         Vector2 tileSize = tilePrefab.GetComponent<SpriteRenderer>().size;
@@ -187,6 +189,7 @@ public class BoardManager : MonoBehaviour
 
     public void Process()
     {
+        combo = 0;
         IsProcessing = true;
         ProcessMatches();
     }
@@ -197,12 +200,16 @@ public class BoardManager : MonoBehaviour
     {
         List<TileController> matchingTiles = GetAllMatches();
 
+
         // stop locking if no match found
         if (matchingTiles == null || matchingTiles.Count == 0)
         {
             IsProcessing = false;
             return;
         }
+
+        combo++;
+        ScoreManager.Instance.IncrementCurrentScore(matchingTiles.Count, combo);
 
         StartCoroutine(ClearMatches(matchingTiles, ProcessDrop));
     }

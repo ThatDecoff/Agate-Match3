@@ -30,10 +30,13 @@ public class TileController : MonoBehaviour
     private BoardManager board;
     private SpriteRenderer render;
 
+    private GameFlowManager game;
+
     private void Awake()
     {
         board = BoardManager.Instance;
         render = GetComponent<SpriteRenderer>();
+        game = GameFlowManager.Instance;
     }
 
     private void Start()
@@ -48,7 +51,7 @@ public class TileController : MonoBehaviour
     private void OnMouseDown()
     {
         // Non Selectable conditions
-        if (render.sprite == null || board.IsAnimating)
+        if (render.sprite == null || board.IsAnimating || game.IsGameOver)
         {
             return;
         }
