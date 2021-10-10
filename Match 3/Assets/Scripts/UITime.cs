@@ -27,6 +27,6 @@ public class UITime : MonoBehaviour
         int minute = Mathf.FloorToInt(timeRemaining / 60);
         int second = Mathf.FloorToInt(timeRemaining % 60);
 
-        return string.Format("{0} : {1}", minute.ToString(), second.ToString());
+        return string.Format("{0} : {1}", minute.ToString("D2"), second.ToString("D2"));
     }
 }
